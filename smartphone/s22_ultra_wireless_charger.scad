@@ -63,24 +63,24 @@ module vertical_s22u_holder() {
     holder_width = 100;
     holder_height = 124.3;
     holder_thickness = 30;
-    zflip()
+    coil_module_width = 60.5;
+    coil_module_height = 60.5;
+    bottom_depth = 10;
+    side_thickness = (holder_width - s22u_width) / 2;
     diff()
     cuboid([holder_thickness, holder_width, holder_height]) {
         // make space for the phone
         tag("remove")
-        attach(TOP, TOP, inside=true, shiftout=0.01)
-        up(10) color("lightblue") cuboid([s22u_thickness+1, s22u_width + 0.9, holder_height], rounding=2);
+        attach(BOTTOM, BOTTOM, inside=true, shiftout=0.01)
+        up(bottom_depth) color("lightblue")
+        cuboid([s22u_thickness+1, s22u_width + 0.9, holder_height], rounding=2);
         // create a cutout for the charging coil module
         tag("remove")
-        attach(TOP, TOP, inside=true, shiftout=0.01)
-        up(59.4) left((s22u_thickness+1)/2 + 20/2 + 1) back(4.69)
-        color("green") cuboid([20, 60.5, 60.5], rounding=0);
+        attach(BOTTOM, BOTTOM, inside=true, shiftout=0.01)
+        up(bottom_depth + 49.4) right((s22u_thickness+1)/2 + 20/2 + 1) back(4.69)
+        color("green") cuboid([20, coil_module_width, coil_module_height], rounding=0);
     }
 }
 
 
 vertical_s22u_holder();
-
-
-
-//simple_coil_holder();
