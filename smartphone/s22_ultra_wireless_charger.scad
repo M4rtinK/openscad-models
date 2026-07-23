@@ -1,10 +1,11 @@
 include <../BOSL2/std.scad>
+include <../BOSL2/screws.scad>
 
 $fn = 100;
 
-mk = 2;
+mk = 3;
 
-text = str("s22uc mk", mk);
+text = str("S22U charger mk", mk);
 
 // charging coil
 charging_coil_depth = 2.5;
@@ -16,6 +17,8 @@ coil_wire_cutout_notch_width = 13.17;
 s22u_thickness = 16;
 s22u_width = 89.6;
 s22u_height = 177;
+s22u_case_side_thickness = 5.86;
+s22u_case_bottom_thickness = 7.1;
 
 module simple_coil_holder() {
     // A module holding the charging coild.
@@ -60,27 +63,73 @@ module vertical_s22u_holder() {
     //
     // It is espected for the phone to be inserted from the top with cameras up,
     // but it seems to work also with cameras down.
-    holder_width = 100;
+    holder_width = 110;
+    holder_inside_width = s22u_width + 0.9;
     holder_height = 124.3;
     holder_thickness = 30;
-    coil_module_width = 60.5;
-    coil_module_height = 60.5;
+    coil_module_width = 54.5 + 1;
+    coil_module_height = 54.5 + 0.5;
     bottom_depth = 10;
-    side_thickness = (holder_width - s22u_width) / 2;
+    side_thickness = (holder_width - (holder_inside_width)) / 2;
+
+    // coil module allignment
+    base_width = 60;
+    base_height = 60;
+    base_left_offset = 10.31;
+    base_bottom_offset = 49.4;
+    left_offset = base_left_offset + ((base_width - coil_module_width) / 2) + s22u_case_side_thickness;
+    echo("width");
+    echo(left_offset);
+    bottom_offset = base_bottom_offset + ((base_height - coil_module_height) / 2) + s22u_case_bottom_thickness;
+    echo("bottom");
+    echo(bottom_offset);
+
     diff()
     cuboid([holder_thickness, holder_width, holder_height]) {
         // make space for the phone
         tag("remove")
         attach(BOTTOM, BOTTOM, inside=true, shiftout=0.01)
         up(bottom_depth) color("lightblue")
-        cuboid([s22u_thickness+1, s22u_width + 0.9, holder_height], rounding=2);
+        cuboid([s22u_thickness+1, holder_inside_width, holder_height], rounding=2);
         // create a cutout for the charging coil module
         tag("remove")
+        align(FWD) back(coil_module_width/2)
         attach(BOTTOM, BOTTOM, inside=true, shiftout=0.01)
-        up(bottom_depth + 49.4) right((s22u_thickness+1)/2 + 20/2 + 1) back(4.69)
+        up(bottom_depth + 52.125) right((s22u_thickness+1)/2 + 20/2 + 1)
+        back(side_thickness + left_offset)
         color("green") cuboid([20, coil_module_width, coil_module_height], rounding=0);
+        // cooling cutout - front
+        tag("remove")
+        position(LEFT) down(20)
+        cuboid([30, holder_inside_width-15, 50], rounding=1);
+        // cooling cutout - back bottom
+        tag("remove")
+        position(RIGHT) down(30)
+        cuboid([30, holder_inside_width-30, 30], rounding=1);
+        // add nut traps for integration with other parts
+        tag("remove")
+        position(FRONT+BOTTOM) back(7)
+        color("red") m4_nut_trap(0);
+        tag("remove")
+        position(BACK+BOTTOM) fwd(7)
+        color("red") m4_nut_trap(0);
+        // temporary PCB holder
+        tag("remove")
+        position(BACK) back(4) up(10) left(7.5)
+        color("white") yrot(90) rect_tube(size=22, wall=1.8, rounding=5, h=5.2);
+        tag("remove")
+        position(LEFT) up(30)
+        zrot(270) xrot(90)
+        text3d(text, h=3, size=6.5, anchor=CENTER);
     }
 }
+
+module m4_nut_trap(rotate=0) {
+    zrot(rotate) screw_hole("M4", length=20, anchor=BOTTOM)
+        up(3.5) position(BOT) nut_trap_side(20, "M4", poke_len=20);
+}
+
+back(100) 
 
 
 vertical_s22u_holder();
