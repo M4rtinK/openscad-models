@@ -3,7 +3,7 @@ include <../BOSL2/screws.scad>
 
 $fn = 100;
 
-mk = 3;
+mk = 4;
 
 text = str("S22U charger mk", mk);
 
@@ -19,6 +19,11 @@ s22u_width = 89.6;
 s22u_height = 177;
 s22u_case_side_thickness = 5.86;
 s22u_case_bottom_thickness = 7.1;
+
+// holder
+holder_width = 110;
+holder_thickness = 30;
+holder_bottom_screw_hole_offset = 7;
 
 module simple_coil_holder() {
     // A module holding the charging coild.
@@ -63,10 +68,9 @@ module vertical_s22u_holder() {
     //
     // It is espected for the phone to be inserted from the top with cameras up,
     // but it seems to work also with cameras down.
-    holder_width = 110;
+    
     holder_inside_width = s22u_width + 0.9;
-    holder_height = 124.3;
-    holder_thickness = 30;
+    holder_height = 124.3;    
     coil_module_width = 54.5 + 1;
     coil_module_height = 54.5 + 0.5;
     bottom_depth = 10;
@@ -108,10 +112,10 @@ module vertical_s22u_holder() {
         cuboid([30, holder_inside_width-30, 30], rounding=1);
         // add nut traps for integration with other parts
         tag("remove")
-        position(FRONT+BOTTOM) back(7)
+        position(FRONT+BOTTOM) back(holder_bottom_screw_hole_offset)
         color("red") m4_nut_trap(0);
         tag("remove")
-        position(BACK+BOTTOM) fwd(7)
+        position(BACK+BOTTOM) fwd(holder_bottom_screw_hole_offset)
         color("red") m4_nut_trap(0);
         // temporary PCB holder
         tag("remove")
@@ -129,7 +133,30 @@ module m4_nut_trap(rotate=0) {
         up(3.5) position(BOT) nut_trap_side(20, "M4", poke_len=20);
 }
 
-back(100) 
+module base_plate() {
+    diff()
+    cuboid([130, 70, 10], anchor=BOTTOM, rounding=5, edges = "Z") {
+        // holder cutout
+        tag("remove")                
+        up(4)
+        cuboid([holder_width+1, holder_thickness+1, 7]);
+        // screw holes
+        tag("remove")
+        up(1.5) left((holder_width/2)-holder_bottom_screw_hole_offset)
+        screw_hole("M4", length=10, orient=DOWN, head="socket", counterbore=3);
+        // screw holes
+        tag("remove")
+        //attach(BOTTOM, BOTTOM, inside=true, shiftout=0.01)
+        up(1.5) right((holder_width/2)-holder_bottom_screw_hole_offset)
+        screw_hole("M4", length=10, orient=DOWN, head="socket", counterbore=3);
+        tag("remove")
+        //position(LEFT) up(30)
+        zflip() xflip()
+        up(4) fwd(3)
+        text3d(text, h=3, size=6.5, anchor=CENTER);
+        
+    }
+}
 
-
-vertical_s22u_holder();
+//vertical_s22u_holder();
+base_plate();
