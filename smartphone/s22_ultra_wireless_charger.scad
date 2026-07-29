@@ -13,6 +13,12 @@ charging_coil_diameter = 50;
 coil_wire_cutout_width = 3;
 coil_wire_cutout_notch_width = 13.17;
 
+// metal cooler
+cooler_width = 50.85;
+cooler_height = 50.12;
+cooler_plate_thickness = 2.58;
+cooling_fin_width = 10.25;
+
 // s22 ultra sizes
 s22u_thickness = 16;
 s22u_width = 89.6;
@@ -63,6 +69,55 @@ module simple_coil_holder() {
     }
 }
 
+module cooler_holder() {
+    // A module holding a metal cooler for the charging coil.
+    //
+    // The charging coil hets up quite bit, so lets put it a metal mosfet cooler,
+    // which also provides backing for the fragile metal back plate.
+    // Then put the result into this holding module
+
+    cooler_holder_mk = 1;
+    cooler_holder_text = str("cooler holder mk", cooler_holder_mk);
+
+    diff()
+    cuboid([55, 55, 10]) {
+        // charging coil cutout
+        tag("remove")
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        cuboid([cooler_width, cooler_height, cooler_plate_thickness + charging_coil_depth]);
+        // cooling fin cutouts
+        // cutout 1
+        tag("remove")
+        align(TOP) color("red")
+        right((cooler_width/2) - (cooling_fin_width/2))
+        //back(coil_wire_cutout_notch_width/2 + coil_wire_cutout_width/2)
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        cuboid([cooling_fin_width, cooler_height, 20]);
+        // cutout 2
+        tag("remove")
+        align(TOP) color("red")
+        //fwd(coil_wire_cutout_notch_width/2 + coil_wire_cutout_width/2)
+        left((cooler_width/2) - (cooling_fin_width/2))
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        cuboid([cooling_fin_width, cooler_height, 20]);
+
+        // wire cutout
+        tag("remove")
+        align(FRONT)
+        //back(coil_wire_cutout_notch_width/2 + coil_wire_cutout_width/2)
+        back(1)
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        cuboid([4.5, 3, 20]);
+        // model description
+        tag("remove")
+        down(4)
+        right(2)
+        back(1)
+        yflip()
+        zrot(90)
+        text3d(cooler_holder_text, h=3, size=4.5, anchor=CENTER);
+    }
+}
 module vertical_s22u_holder() {
     // S22 Ultra vertical holder
     //
@@ -166,6 +221,3 @@ module base_plate() {
         text3d(base_plate_text, h=3, size=6.5, anchor=CENTER);
     }
 }
-
-vertical_s22u_holder();
-//base_plate();
