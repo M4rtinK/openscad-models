@@ -129,8 +129,8 @@ module vertical_s22u_holder() {
 }
 
 module m4_nut_trap(rotate=0) {
-    zrot(rotate) screw_hole("M4", length=20, anchor=BOTTOM)
-        up(3.5) position(BOT) nut_trap_side(20, "M4", poke_len=20);
+    zrot(rotate) screw_hole("M3", length=20, anchor=BOTTOM)
+        up(3.5) position(BOT) nut_trap_side(20, "M3", poke_len=20);
 }
 
 module base_plate() {
@@ -142,13 +142,13 @@ module base_plate() {
         cuboid([holder_width+1, holder_thickness+1, 7]);
         // screw holes
         tag("remove")
-        up(1.5) left((holder_width/2)-holder_bottom_screw_hole_offset)
-        screw_hole("M4", length=10, orient=DOWN, head="socket", counterbore=3);
+        up(1.75) left((holder_width/2)-holder_bottom_screw_hole_offset)
+        screw_hole("M3", length=10, orient=DOWN, head="socket", counterbore=3.5);
         // screw holes
         tag("remove")
         //attach(BOTTOM, BOTTOM, inside=true, shiftout=0.01)
-        up(1.5) right((holder_width/2)-holder_bottom_screw_hole_offset)
-        screw_hole("M4", length=10, orient=DOWN, head="socket", counterbore=3);
+        up(1.75) right((holder_width/2)-holder_bottom_screw_hole_offset)
+        screw_hole("M3", length=10, orient=DOWN, head="socket", counterbore=3.5);
         tag("remove")
         //position(LEFT) up(30)
         zflip() xflip()
