@@ -140,10 +140,14 @@ module m4_nut_trap(rotate=0) {
 }
 
 module base_plate() {
+
+    base_plate_mk = 2;
+    base_plate_text = str("base plate mk", base_plate_mk);
+
     diff()
     cuboid([130, 70, 10], anchor=BOTTOM, rounding=5, edges = "Z") {
         // holder cutout
-        tag("remove")                
+        tag("remove")
         up(4)
         cuboid([holder_width+1, holder_thickness+1, 7]);
         // screw holes
@@ -159,8 +163,7 @@ module base_plate() {
         //position(LEFT) up(30)
         zflip() xflip()
         up(4) fwd(3)
-        text3d(text, h=3, size=6.5, anchor=CENTER);
-        
+        text3d(base_plate_text, h=3, size=6.5, anchor=CENTER);
     }
 }
 
