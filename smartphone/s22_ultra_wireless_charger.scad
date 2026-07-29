@@ -69,6 +69,9 @@ module vertical_s22u_holder() {
     // It is espected for the phone to be inserted from the top with cameras up,
     // but it seems to work also with cameras down.
     
+    holder_mk = 4;
+    holder_text = str("S22U holder mk", holder_mk);
+    
     holder_inside_width = s22u_width + 0.9;
     holder_height = 124.3;    
     coil_module_width = 54.5 + 1;
@@ -99,13 +102,13 @@ module vertical_s22u_holder() {
         tag("remove")
         align(FWD) back(coil_module_width/2)
         attach(BOTTOM, BOTTOM, inside=true, shiftout=0.01)
-        up(bottom_depth + 52.125) right((s22u_thickness+1)/2 + 20/2 + 1)
+        up(bottom_depth + 52.125) right((s22u_thickness+1)/2 + 20/2 + 1 - 5)
         back(side_thickness + left_offset)
         color("green") cuboid([20, coil_module_width, coil_module_height], rounding=0);
         // cooling cutout - front
         tag("remove")
-        position(LEFT) down(20)
-        cuboid([30, holder_inside_width-15, 50], rounding=1);
+        position(LEFT) down(20-30)
+        cuboid([30, holder_inside_width-15, 50+60], rounding=1);
         // cooling cutout - back bottom
         tag("remove")
         position(RIGHT) down(30)
@@ -117,14 +120,17 @@ module vertical_s22u_holder() {
         tag("remove")
         position(BACK+BOTTOM) fwd(holder_bottom_screw_hole_offset)
         color("red") m4_nut_trap(0);
-        // temporary PCB holder
+        // temporary PCB holders
         tag("remove")
-        position(BACK) back(4) up(10) left(7.5)
-        color("white") yrot(90) rect_tube(size=22, wall=1.8, rounding=5, h=5.2);
+        position(BACK) back(8) up(25) right(5)
+        color("white") yrot(90) rect_tube(size=30, wall=1.8, rounding=5, h=5.2);
         tag("remove")
-        position(LEFT) up(30)
-        zrot(270) xrot(90)
-        text3d(text, h=3, size=6.5, anchor=CENTER);
+        position(BACK) back(8) up(25) left(10)
+        color("white") yrot(90) rect_tube(size=30, wall=1.8, rounding=5, h=5.2);
+        tag("remove")
+        position(RIGHT) down(55)
+        zrot(90) xrot(90)
+        text3d(holder_text, h=3, size=6.5, anchor=CENTER);
     }
 }
 
@@ -158,5 +164,5 @@ module base_plate() {
     }
 }
 
-//vertical_s22u_holder();
-base_plate();
+vertical_s22u_holder();
+//base_plate();
