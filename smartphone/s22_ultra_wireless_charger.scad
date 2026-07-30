@@ -76,11 +76,15 @@ module cooler_holder() {
     // which also provides backing for the fragile metal back plate.
     // Then put the result into this holding module
 
-    cooler_holder_mk = 3;
+    cooler_holder_mk = 4;
     cooler_holder_text = str("cooler holder mk", cooler_holder_mk);
 
+    cooler_holder_side = 55;
+    cooler_holder_thickness = 10;
+    aretation_notch_width = 5;
+    
     diff()
-    cuboid([55, 55, 10]) {
+    cuboid([cooler_holder_side, cooler_holder_side, cooler_holder_thickness]) {
         // charging coil cutout
         tag("remove")
         attach(TOP, TOP,inside=true,shiftout=0.01)
@@ -100,21 +104,24 @@ module cooler_holder() {
         left((cooler_width/2) - (cooling_fin_width/2))
         attach(TOP, TOP,inside=true,shiftout=0.01)
         cuboid([cooling_fin_width, cooler_height, 20]);
-
         // wire cutout
         tag("remove")
         align(FRONT)
-        //back(coil_wire_cutout_notch_width/2 + coil_wire_cutout_width/2)
         back(1)
         attach(TOP, TOP,inside=true,shiftout=0.01)
         cuboid([4.5, 3, 20]);
+        // aretation notches
+        tag("keep")
+        align(RIGHT) color("blue") right(aretation_notch_width/2)
+        attach(BOTTOM, BOTTOM,inside=true,shiftout=0.01)
+        cuboid([aretation_notch_width, cooler_holder_side, cooler_holder_thickness-6.3]);
+        tag("keep")
+        align(LEFT) color("blue") left(aretation_notch_width/2)
+        attach(BOTTOM, BOTTOM,inside=true,shiftout=0.01)
+        cuboid([aretation_notch_width, cooler_holder_side, cooler_holder_thickness-6.3]);
         // model description
         tag("remove")
-        down(4)
-        right(2)
-        back(1)
-        yflip()
-        zrot(90)
+        down(4) right(2) back(1) yflip() zrot(90)
         text3d(cooler_holder_text, h=3, size=4.5, anchor=CENTER);
     }
 }
