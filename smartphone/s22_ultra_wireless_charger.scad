@@ -15,7 +15,7 @@ coil_wire_cutout_notch_width = 13.17;
 
 // metal cooler
 cooler_width = 50.85;
-cooler_height = 50.12;
+cooler_height = 50.25;
 cooler_plate_thickness = 2.58;
 cooling_fin_width = 10.25;
 
@@ -76,7 +76,7 @@ module cooler_holder() {
     // which also provides backing for the fragile metal back plate.
     // Then put the result into this holding module
 
-    cooler_holder_mk = 1;
+    cooler_holder_mk = 2;
     cooler_holder_text = str("cooler holder mk", cooler_holder_mk);
 
     diff()
@@ -221,3 +221,5 @@ module base_plate() {
         text3d(base_plate_text, h=3, size=6.5, anchor=CENTER);
     }
 }
+
+cooler_holder();
