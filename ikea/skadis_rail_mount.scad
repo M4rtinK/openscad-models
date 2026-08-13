@@ -129,5 +129,61 @@ module rail_holder_front() {
     }
 }
 
-fwd(100) rail_holder_back();
-rail_holder_front();
+module skadis_stabilizer() {
+
+    mk = 1;
+    text = str("mk", mk);
+
+    stabilizer_diameter = 25;
+    stabilizer_hole_diameter = 20;
+    stabilizer_hole_depth = 5;
+    stabilizer_height = 20;
+    diff()
+    cylinder(d=stabilizer_diameter, stabilizer_height) {
+        // hole for variable legth piece
+        tag("remove")
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        cylinder(d=stabilizer_hole_diameter, stabilizer_hole_depth);
+        // mounting hole
+        tag("remove")
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        color("red") zrot(rotate) screw_hole("M4", length=25, anchor=BOTTOM)
+        up(14.5) position(BOT) nut_trap_side(100, "M4", poke_len=15);
+        // revision
+        tag("remove")
+        up(6) fwd(3)
+        zrot(180) color("white")
+        text3d(text, h=3, size=5.5, anchor=CENTER);
+    }
+}
+
+module skadis_stabilizer_cylinder(stabilizer_cylinder_height=9) {
+
+    mk = 1;
+    text = str("mk", mk);
+    depth_text = str(stabilizer_cylinder_height, " mm");
+    stabilizer_hole_diameter = 20;
+    diff()
+    cylinder(d=stabilizer_hole_diameter-0.3, stabilizer_cylinder_height) {
+        // central M4 scre hole
+        tag("remove")
+        attach(TOP, TOP,inside=true,shiftout=0.01) up(20)
+        color("red") m4_hole();
+        // revision
+        tag("remove")
+        up(stabilizer_cylinder_height/2 + 0.5) fwd(3)
+        zrot(180) color("white")
+        text3d(text, h=3, size=5, anchor=CENTER);
+        // depth
+        tag("remove")
+        up(stabilizer_cylinder_height/2 + 0.5) back(6)
+        zrot(180) color("white")
+        text3d(depth_text, h=3, size=4, anchor=CENTER);
+    }
+}
+
+//fwd(100) rail_holder_back();
+//rail_holder_front();
+//fwd(50) skadis_stabilizer();
+//fwd(25) skadis_stabilizer_cylinder();
+//fwd(0) skadis_stabilizer_cylinder(5);
