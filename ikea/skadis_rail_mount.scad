@@ -29,20 +29,20 @@ module rail_holder_back() {
     // It has a hole in the back for the screw that mounts the holder to the wall.
     mk = 3;
     text = str("rail holder back mk", mk);
-    
+
     diff()
     cuboid([holder_width, holder_height, holder_thickness]) {
         // charging coil cutout
         tag("remove")
         attach(TOP, TOP,inside=true,shiftout=0.01)
-        cuboid([rail_width, holder_height+2, rail_thickness/2]);        
+        cuboid([rail_width, holder_height+2, rail_thickness/2]);
         // mounting hole & lower area around it
         tag("remove")
         attach(TOP, TOP,inside=true,shiftout=0.01)
         cuboid([wall_screw_diameter,12,20], rounding=1);
         tag("remove")
         attach(TOP, TOP,inside=true,shiftout=0.01)
-        cuboid([20,35,rail_thickness/2 + 2], rounding=2, edges="Z");               
+        cuboid([20,35,rail_thickness/2 + 2], rounding=2, edges="Z");
         // add nut traps for integration with the other half
         // left
         tag("remove")
@@ -50,17 +50,17 @@ module rail_holder_back() {
         color("red") m4_nut_trap(180);
         tag("remove")
         position(BACK+BOTTOM+LEFT) right(hole_offset) fwd(holder_height/2)
-        color("red") m4_nut_trap(180); 
+        color("red") m4_nut_trap(180);
         tag("remove")
         position(BACK+BOTTOM+LEFT) right(hole_offset) fwd(10)
-        color("red") m4_nut_trap(180);         
+        color("red") m4_nut_trap(180);
         // right
         tag("remove")
         position(FRONT+BOTTOM+RIGHT) left(hole_offset) back(10)
         color("red") m4_nut_trap(0);
         tag("remove")
         position(BACK+BOTTOM+RIGHT) left(hole_offset) fwd(holder_height/2)
-        color("red") m4_nut_trap(0); 
+        color("red") m4_nut_trap(0);
         tag("remove")
         position(BACK+BOTTOM+RIGHT) left(hole_offset) fwd(10)
         color("red") m4_nut_trap(0);
@@ -83,16 +83,16 @@ module rail_holder_front() {
     // A module holding the rail from the back.
     //
     // Mounts to the back holder from the front.
-    
+
     mk = 3;
-    text = str("rail holder front mk", mk);    
-    
+    text = str("rail holder front mk", mk);
+
     diff()
     cuboid([holder_width, holder_height, holder_thickness]) {
         // charging coil cutout
         tag("remove")
         attach(TOP, TOP,inside=true,shiftout=0.01)
-        cuboid([rail_width, holder_height+2, rail_thickness/2]);       
+        cuboid([rail_width, holder_height+2, rail_thickness/2]);
         // add screw holes for integration with the other half
         // left
         tag("remove")
@@ -100,21 +100,21 @@ module rail_holder_front() {
         color("red") m4_hole();
         tag("remove")
         position(BACK+BOTTOM+LEFT) right(hole_offset) fwd(holder_height/2)
-        color("red") m4_hole(); 
+        color("red") m4_hole();
         tag("remove")
         position(BACK+BOTTOM+LEFT) right(hole_offset) fwd(10)
-        color("red") m4_hole();         
+        color("red") m4_hole();
         // right
         tag("remove")
         position(FRONT+BOTTOM+RIGHT) left(hole_offset) back(10)
         color("red") m4_hole();
         tag("remove")
         position(BACK+BOTTOM+RIGHT) left(hole_offset) fwd(holder_height/2)
-        color("red") m4_hole(); 
+        color("red") m4_hole();
         tag("remove")
         position(BACK+BOTTOM+RIGHT) left(hole_offset) fwd(10)
         color("red") m4_hole();
-        // add nut traps for integrating with skadis        
+        // add nut traps for integrating with skadis
         tag("remove")
         position(FRONT+BOTTOM) down(1) right(0) back(20)
         color("red") m4_nut_trap(270);
