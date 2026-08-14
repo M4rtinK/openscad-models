@@ -9,7 +9,7 @@ holder_thickness = 12;
 rail_width_fit_factor = 0.5;
 rail_width = 55.3 + rail_width_fit_factor;
 rail_thickness = 8;
-rail_hole_diameter = 14.6;
+rail_hole_diameter = 14.4;
 rail_hole_offset_right = 5.7;
 rail_hole_spacing = 35.13;
 hole_offset = 11;
@@ -28,7 +28,7 @@ module rail_holder_back() {
     // A module holding the rail from the back.
     //
     // It has a hole in the back for the screw that mounts the holder to the wall.
-    mk = 4;
+    mk = 5;
     text = str("rail holder back mk", mk);
 
     diff()
@@ -138,7 +138,7 @@ module skadis_stabilizer() {
     // near the edges via these stabilizers.
     // As things might be sometimes slightly eneven, we need
     // a multi part stabilizer to age a good fit.
-
+    
     mk = 1;
     text = str("mk", mk);
 
@@ -169,7 +169,7 @@ module skadis_stabilizer_cylinder(stabilizer_cylinder_height=9) {
     // Skadis stabilizer module
     //
     // These modules can be combined to get a good fit.
-
+    
     mk = 1;
     text = str("mk", mk);
     depth_text = str(stabilizer_cylinder_height, " mm");
@@ -199,3 +199,7 @@ rail_holder_back();
 //fwd(50) skadis_stabilizer();
 //fwd(25) skadis_stabilizer_cylinder();
 //fwd(0) skadis_stabilizer_cylinder(5);
+
+
+
+
