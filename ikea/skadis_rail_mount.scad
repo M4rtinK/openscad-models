@@ -131,6 +131,13 @@ module rail_holder_front() {
 }
 
 module skadis_stabilizer() {
+    // Stabilize the skadis board on the edges
+    //
+    // The board is connected to the wall only in the middle
+    // via the rail, so wee need to brace it against the wall
+    // near the edges via these stabilizers.
+    // As things might be sometimes slightly eneven, we need
+    // a multi part stabilizer to age a good fit.
 
     mk = 1;
     text = str("mk", mk);
@@ -159,6 +166,9 @@ module skadis_stabilizer() {
 }
 
 module skadis_stabilizer_cylinder(stabilizer_cylinder_height=9) {
+    // Skadis stabilizer module
+    //
+    // These modules can be combined to get a good fit.
 
     mk = 1;
     text = str("mk", mk);
@@ -183,8 +193,9 @@ module skadis_stabilizer_cylinder(stabilizer_cylinder_height=9) {
     }
 }
 
-fwd(100) rail_holder_back();
-rail_holder_front();
+//fwd(100) rail_holder_back();
+rail_holder_back();
+//rail_holder_front();
 //fwd(50) skadis_stabilizer();
 //fwd(25) skadis_stabilizer_cylinder();
 //fwd(0) skadis_stabilizer_cylinder(5);
