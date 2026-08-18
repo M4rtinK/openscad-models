@@ -143,7 +143,7 @@ module rail_holder_front_short(step_height=1) {
         // charging coil cutout
         tag("remove")
         attach(TOP, TOP,inside=true,shiftout=0.01)
-        cuboid([rail_width, holder_height+2, rail_thickness/2.2]);       
+        cuboid([rail_width, holder_height+2, rail_thickness/2.2]);
         // add versioning text
         tag("remove")
         up(3) left(6) fwd(2.5)
@@ -154,7 +154,7 @@ module rail_holder_front_short(step_height=1) {
         color("magenta")
         up(rail_thickness/2.2 - step_height) left(rail_width/2-5)
         cuboid([10, 10, step_height]);
-    }    
+    }
 }
 
 module skadis_stabilizer() {
@@ -165,7 +165,7 @@ module skadis_stabilizer() {
     // near the edges via these stabilizers.
     // As things might be sometimes slightly eneven, we need
     // a multi part stabilizer to age a good fit.
-    
+
     mk = 1;
     text = str("mk", mk);
 
@@ -196,7 +196,7 @@ module skadis_stabilizer_cylinder(stabilizer_cylinder_height=9) {
     // Skadis stabilizer module
     //
     // These modules can be combined to get a good fit.
-    
+
     mk = 1;
     text = str("mk", mk);
     depth_text = str(stabilizer_cylinder_height, " mm");
