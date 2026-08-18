@@ -130,6 +130,33 @@ module rail_holder_front() {
     }
 }
 
+module rail_holder_front_short(step_height=1) {
+    // A module holding the rail from the front - short version.
+    //
+    // Used for fit checks with the rail.
+
+    mk = 1;
+    text = str(step_height, " mm");
+
+    diff()
+    cuboid([holder_width, 10, holder_thickness]) {
+        // charging coil cutout
+        tag("remove")
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        cuboid([rail_width, holder_height+2, rail_thickness/2.2]);       
+        // add versioning text
+        tag("remove")
+        up(3) left(6) fwd(2.5)
+        zrot(0) color("white")
+        text3d(text, h=3, size=6.5, anchor=CENTER);
+        tag("keep")
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        color("magenta")
+        up(rail_thickness/2.2 - step_height) left(rail_width/2-5)
+        cuboid([10, 10, step_height]);
+    }    
+}
+
 module skadis_stabilizer() {
     // Stabilize the skadis board on the edges
     //
@@ -194,8 +221,14 @@ module skadis_stabilizer_cylinder(stabilizer_cylinder_height=9) {
 }
 
 //fwd(100) rail_holder_back();
-rail_holder_back();
-//rail_holder_front();
+//rail_holder_back();
+fwd() rail_holder_front_short(0.6);
+fwd(15) rail_holder_front_short(0.8);
+fwd(30) rail_holder_front_short(1);
+fwd(45) rail_holder_front_short(1.2);
+fwd(60) rail_holder_front_short(1.4);
+fwd(75) rail_holder_front_short(1.6);
+fwd(90) rail_holder_front_short(1.8);
 //fwd(50) skadis_stabilizer();
 //fwd(25) skadis_stabilizer_cylinder();
 //fwd(0) skadis_stabilizer_cylinder(5);
