@@ -17,8 +17,8 @@ wall_screw_diameter = 4;
 wall_screw_washer_diameter = 30.5;
 
 module m4_nut_trap(rotate=90) {
-    zrot(rotate) screw_hole("M4", length=20, anchor=BOTTOM)
-        up(3.5) position(BOT) nut_trap_side(100, "M4", poke_len=0);
+    zrot(rotate) down(5) screw_hole("M4", length=30, anchor=BOTTOM)
+        up(8.5) position(BOT) nut_trap_side(100, "M4", poke_len=0);
 }
 
 module m4_hole() {
