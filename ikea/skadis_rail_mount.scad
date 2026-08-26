@@ -29,46 +29,46 @@ module rail_holder_back() {
     // A module holding the rail from the back.
     //
     // It has a hole in the back for the screw that mounts the holder to the wall.
-    mk = 5;
+    mk = 6;
     text = str("rail holder back mk", mk);
 
     diff()
-    cuboid([holder_width, holder_height, holder_thickness]) {
-        // charging coil cutout
+    cuboid([holder_width, holder_height, holder_thickness+2]) {
+        // rail cutout
         tag("remove")
         attach(TOP, TOP,inside=true,shiftout=0.01)
         cuboid([rail_width, holder_height+2, rail_thickness/2]);
         // mounting hole & lower area around it
         tag("remove")
         attach(TOP, TOP,inside=true,shiftout=0.01)
-        cuboid([wall_screw_diameter,12,20], rounding=1);
+        cuboid([wall_screw_diameter,16,20], rounding=1);
         tag("remove")
         attach(TOP, TOP,inside=true,shiftout=0.01)
-        cuboid([20,35,rail_thickness/2 + 2], rounding=2, edges="Z");
+        cuboid([wall_screw_washer_diameter,50,rail_thickness/2 + 5], rounding=2, edges="Z");
         // add nut traps for integration with the other half
         // left
         tag("remove")
-        position(FRONT+BOTTOM+LEFT) right(hole_offset) back(10)
+        position(FRONT+BOTTOM+LEFT) right(hole_offset) back(10) up(3)
         color("red") m4_nut_trap(180);
         tag("remove")
-        position(BACK+BOTTOM+LEFT) right(hole_offset) fwd(holder_height/2)
+        position(BACK+BOTTOM+LEFT) right(hole_offset) fwd(holder_height/2) up(3)
         color("red") m4_nut_trap(180);
         tag("remove")
-        position(BACK+BOTTOM+LEFT) right(hole_offset) fwd(10)
+        position(BACK+BOTTOM+LEFT) right(hole_offset) fwd(10) up(3)
         color("red") m4_nut_trap(180);
         // right
         tag("remove")
-        position(FRONT+BOTTOM+RIGHT) left(hole_offset) back(10)
+        position(FRONT+BOTTOM+RIGHT) left(hole_offset) back(10) up(3)
         color("red") m4_nut_trap(0);
         tag("remove")
-        position(BACK+BOTTOM+RIGHT) left(hole_offset) fwd(holder_height/2)
+        position(BACK+BOTTOM+RIGHT) left(hole_offset) fwd(holder_height/2) up(3)
         color("red") m4_nut_trap(0);
         tag("remove")
-        position(BACK+BOTTOM+RIGHT) left(hole_offset) fwd(10)
+        position(BACK+BOTTOM+RIGHT) left(hole_offset) fwd(10) up(3)
         color("red") m4_nut_trap(0);
         // add versioning text
         tag("remove")
-        up(3) left(15)
+        up(3) left(18)
         zrot(90) color("white")
         text3d(text, h=3, size=5.5, anchor=CENTER);
     }
