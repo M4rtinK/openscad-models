@@ -86,8 +86,10 @@ module rail_holder_front() {
     //
     // Mounts to the back holder from the front.
 
-    mk = 4;
+    mk = 5;
     text = str("rail holder front mk", mk);
+
+    step_height = 1.8;
 
     diff()
     cuboid([holder_width, holder_height, holder_thickness]) {
@@ -128,6 +130,11 @@ module rail_holder_front() {
         up(3) left(15)
         zrot(90) color("white")
         text3d(text, h=3, size=5.5, anchor=CENTER);
+        tag("keep")
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        color("magenta")
+        up(rail_thickness/2.2 - step_height) left(rail_width/2-5)
+        cuboid([10, holder_height, step_height]);
     }
 }
 
