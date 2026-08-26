@@ -14,6 +14,7 @@ rail_hole_offset_right = 5.7;
 rail_hole_spacing = 35.13;
 hole_offset = 11;
 wall_screw_diameter = 4;
+wall_screw_washer_diameter = 30.5;
 
 module m4_nut_trap(rotate=90) {
     zrot(rotate) screw_hole("M4", length=20, anchor=BOTTOM)
