@@ -81,6 +81,69 @@ module rail_holder_back() {
     cylinder(d=rail_hole_diameter, 8);
 }
 
+module rail_holder_back_middle() {
+    // A module holding the rail from the back - middle part.
+    //
+    // It has a hole in the back for the screw that mounts the holder to the wall.
+    // The middle bracket has a special hole placement as the holes are unfortunatelly
+    // not aligned perfectly.
+    mk = 1;
+    text = str("rhbm mk", mk);
+
+    diff()
+    cuboid([holder_width, holder_height, holder_thickness+2]) {
+        // rail groove
+        tag("remove")
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        cuboid([rail_width, holder_height+2, rail_thickness/2]);
+        // mounting hole & lower area around it
+        tag("remove")
+        left(holder_width/2) back(holder_height/2) // put the hole to upper left corner first
+        right(44.93) fwd(26.58) // alight with actual hole in the wall
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        cylinder(d=wall_screw_diameter*2.6, h=20);
+        tag("remove")
+        left(holder_width/2) back(holder_height/2) // put the hole to upper left corner first
+        right(44.93) fwd(26.58) // alight with actual hole in the wall
+        attach(TOP, TOP,inside=true,shiftout=0.01)
+        //cuboid([wall_screw_washer_diameter,wall_screw_washer_diameter,rail_thickness/2 + 5], rounding=2, edges="Z");
+        cylinder(d=wall_screw_washer_diameter*1.5, h=rail_thickness/2 + 5);
+        // add nut traps for integration with the other half
+        // left
+        tag("remove")
+        position(FRONT+BOTTOM+LEFT) right(hole_offset) back(10) up(3)
+        color("red") m4_nut_trap(180);
+        tag("remove")
+        position(BACK+BOTTOM+LEFT) right(hole_offset) fwd(holder_height/2) up(3)
+        color("red") m4_nut_trap(180);
+        tag("remove")
+        position(BACK+BOTTOM+LEFT) right(hole_offset) fwd(10) up(3)
+        color("red") m4_nut_trap(180);
+        // right
+        tag("remove")
+        position(FRONT+BOTTOM+RIGHT) left(hole_offset) back(10) up(3)
+        color("red") m4_nut_trap(0);
+        tag("remove")
+        position(BACK+BOTTOM+RIGHT) left(hole_offset) fwd(holder_height/2) up(3)
+        color("red") m4_nut_trap(0);
+        tag("remove")
+        position(BACK+BOTTOM+RIGHT) left(hole_offset) fwd(10) up(3)
+        color("red") m4_nut_trap(0);
+        // add versioning text
+        tag("remove")
+        up(3) left(18) fwd(22)
+        zrot(90) color("white")
+        text3d(text, h=3, size=5, anchor=CENTER);
+    }
+    // aretation cylinder, using existing holes in the metal rail
+    right(rail_hole_diameter/2 + rail_width/2 - rail_hole_diameter - rail_hole_offset_right - rail_width_fit_factor/2)
+    back(rail_hole_spacing/2 + rail_hole_diameter/2)
+    cylinder(d=rail_hole_diameter, 8);
+    right(rail_hole_diameter/2 + rail_width/2 - rail_hole_diameter - rail_hole_offset_right - rail_width_fit_factor/2)
+    fwd(rail_hole_spacing/2 + rail_hole_diameter/2)
+    cylinder(d=rail_hole_diameter, 8);
+}
+
 module rail_holder_front() {
     // A module holding the rail from the front.
     //
