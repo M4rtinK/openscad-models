@@ -17,8 +17,8 @@ omni_plate_groove_depth = 1.6 - 0.1;
 mounting_hole_side_offset = 2.7;
 
 // box holding the Wio electronics
-wio_box_outer_width = 25+1;
-wio_box_outer_height = 25+1;
+wio_box_outer_width = 25+0.5;
+wio_box_outer_height = 25+0.5;
 wio_box_outer_depth = 20;
 // inner space
 wio_box_inner_width = 17.4+0.6;
@@ -42,7 +42,7 @@ module m5_hole() {
 
 module main_holder() {
     // main holder for everything
-    mk = 6;
+    mk = 7;
     text = str("wio holder mk", mk);
     diff()
     cuboid([omni_plate_width, omni_plate_height, 5], rounding=7, edges=["Z"]) {
