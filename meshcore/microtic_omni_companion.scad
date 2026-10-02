@@ -9,16 +9,16 @@ $fn = 100;
 
 /// size of the Microtin omni antenna mounting plate
 omni_plate_width = 68;
-omni_plate_height = 42;
+omni_plate_height = 50;
 // there is a central aretation goorve (?) in the plate
 omni_plate_groove_width = 19.2 - 0.2;
-omni_plate_groove_depth = 2 - 0.1;
+omni_plate_groove_depth = 1.6 - 0.1;
 // there are M5 mounting holes in the plate
 mounting_hole_side_offset = 2.7;
 
 // box holding the Wio electronics
-wio_box_outer_width = 25;
-wio_box_outer_height = 25;
+wio_box_outer_width = 25+1;
+wio_box_outer_height = 25+1;
 wio_box_outer_depth = 20;
 // inner space
 wio_box_inner_width = 17.4+0.6;
@@ -42,14 +42,27 @@ module m5_hole() {
 
 module main_holder() {
     // main holder for everything
-    mk = 4;
+    mk = 6;
     text = str("wio holder mk", mk);
     diff()
     cuboid([omni_plate_width, omni_plate_height, 5], rounding=7, edges=["Z"]) {
         // central aretation ridge
+
         attach(TOP, TOP)
-        diff()
         cuboid([omni_plate_groove_width, omni_plate_height, omni_plate_groove_depth]);
+
+        // pigtail protector plate
+        attach(TOP, TOP)  color("green") fwd(45) down(5)
+        cuboid(
+            [omni_plate_groove_width*2, 40, 15],
+            rounding=0,
+            except_edges = [TOP+BACK, BACK+LEFT, BACK+RIGHT]
+        );
+        // pigtail cutout
+        tag("remove")
+        attach(TOP, TOP, inside=true,shiftout=0.01) fwd(65) down(15)
+        cuboid([4, 45, 30], rounding=2);
+
         // holes for screws/zipties
         tag("remove")
         position(BOTTOM+LEFT) right(2.76+mounting_hole_side_offset) back(0) up(12)
