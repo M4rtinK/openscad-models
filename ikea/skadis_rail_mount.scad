@@ -292,14 +292,15 @@ module skadis_stabilizer_cylinder(stabilizer_cylinder_height=9) {
 }
 
 //fwd(100) rail_holder_back();
-//rail_holder_back();
-fwd() rail_holder_front_short(0.6);
-fwd(15) rail_holder_front_short(0.8);
-fwd(30) rail_holder_front_short(1);
-fwd(45) rail_holder_front_short(1.2);
-fwd(60) rail_holder_front_short(1.4);
-fwd(75) rail_holder_front_short(1.6);
-fwd(90) rail_holder_front_short(1.8);
+rail_holder_back_middle();
+//rail_holder_front();
+//fwd() rail_holder_front_short(0.6);
+//fwd(15) rail_holder_front_short(0.8);
+//fwd(30) rail_holder_front_short(1);
+//fwd(45) rail_holder_front_short(1.2);
+//fwd(60) rail_holder_front_short(1.4);
+//fwd(75) rail_holder_front_short(1.6);
+//fwd(90) rail_holder_front_short(1.8);
 //fwd(50) skadis_stabilizer();
 //fwd(25) skadis_stabilizer_cylinder();
 //fwd(0) skadis_stabilizer_cylinder(5);
